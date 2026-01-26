@@ -73,7 +73,7 @@
             <h4 class="mb-2">Showing all Expenses</h4>
             <p>Track and manage your business expenses</p>
         </div>
-        <div class="mb-6">
+    <div class="mb-6">
             <button onclick="openAddExpenseModal()" 
                     class="inline-flex items-center px-6 py-3 bg-primary hover:bg-hover-primary text-white rounded-lg font-semibold transition-all duration-300 shadow-md hover:shadow-lg">
                 <i class="fas fa-plus mr-2"></i>
