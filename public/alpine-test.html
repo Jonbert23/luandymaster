@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alpine.js Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 40px;
+            background: #f5f5f5;
+        }
+        .test-box {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #3b82f6;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #2563eb;
+        }
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 500px;
+        }
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+        .dropdown-menu {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            min-width: 150px;
+            margin-top: 5px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .dropdown-item {
+            display: block;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+        .dropdown-item:hover {
+            background: #f3f4f6;
+        }
+        .success { color: #10b981; }
+        .error { color: #ef4444; }
+    </style>
+</head>
+<body>
+    <h1>Alpine.js Testing Page</h1>
+    
+    <div class="test-box">
+        <h2>1. Alpine.js Load Test</h2>
+        <p id="alpine-status" class="error">❌ Alpine.js NOT loaded</p>
+    </div>
+
+    <div class="test-box">
+        <h2>2. Counter Test (x-data, x-text)</h2>
+        <div x-data="{ count: 0 }">
+            <p>Count: <span x-text="count"></span></p>
+            <button @click="count++">Increment</button>
+            <button @click="count--">Decrement</button>
+        </div>
+    </div>
+
+    <div class="test-box">
+        <h2>3. Show/Hide Test (x-show)</h2>
+        <div x-data="{ show: false }">
+            <button @click="show = !show">Toggle Message</button>
+            <p x-show="show" style="margin-top: 10px; padding: 10px; background: #dbeafe; border-radius: 4px;">
+                👋 Hello! Alpine.js is working!
+            </p>
+        </div>
+    </div>
+
+    <div class="test-box">
+        <h2>4. Dropdown Test</h2>
+        <div x-data="{ open: false }" @click.outside="open = false" class="dropdown">
+            <button @click="open = !open">
+                Toggle Dropdown (open: <span x-text="open"></span>)
+            </button>
+            <div x-show="open" class="dropdown-menu" style="display: none;">
+                <div class="dropdown-item" @click="alert('Edit clicked'); open = false">
+                    ✏️ Edit
+                </div>
+                <div class="dropdown-item" @click="alert('Delete clicked'); open = false">
+                    🗑️ Delete
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="test-box">
+        <h2>5. Modal Test (Custom Event)</h2>
+        <div x-data="{ modalOpen: false }" @open-test-modal.window="modalOpen = true">
+            <button @click="$dispatch('open-test-modal')">
+                Open Modal via $dispatch
+            </button>
+            <button onclick="window.dispatchEvent(new CustomEvent('open-test-modal'))">
+                Open Modal via JS
+            </button>
+            
+            <div x-show="modalOpen" class="modal" style="display: none;">
+                <div class="modal-content">
+                    <h3>Test Modal</h3>
+                    <p>This modal was triggered by custom event!</p>
+                    <button @click="modalOpen = false">Close Modal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Load Alpine.js from your project -->
+    <script src="template/assets/vendor/alpine/alpineplugin.js"></script>
+    <script src="template/assets/vendor/alpine/alpine.js"></script>
+    
+    <script>
+        // Check if Alpine loaded
+        setTimeout(() => {
+            const statusEl = document.getElementById('alpine-status');
+            if (typeof Alpine !== 'undefined') {
+                statusEl.textContent = '✅ Alpine.js loaded successfully! Version: ' + (Alpine.version || 'unknown');
+                statusEl.className = 'success';
+                console.log('✅ Alpine.js loaded:', Alpine);
+            } else {
+                statusEl.textContent = '❌ Alpine.js failed to load. Check console for errors.';
+                statusEl.className = 'error';
+                console.error('❌ Alpine.js not found');
+            }
+        }, 500);
+    </script>
+</body>
+</html>
