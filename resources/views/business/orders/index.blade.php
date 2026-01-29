@@ -4,7 +4,19 @@
 @section('header_title', 'Orders')
 
 @section('content')
-<div class="container-fluid !p-0 h-[calc(100vh-80px)] flex flex-col">
+<div class="container-fluid">
+    
+    <!-- Page Heading -->
+    <div class="mt-4 flex justify-between items-center flex-wrap mb-3 px-6">
+        <div class="mb-6">
+            <h4 class="mb-2">Showing all Orders</h4>
+            <p>Track and manage your laundry orders with ease</p>
+        </div>
+        
+    </div>
+</div>
+
+<div class="container-fluid !p-0 h-[calc(100vh-180px)] flex flex-col">
     
     <!-- Kanban Board Scroll Container -->
     <div class="flex-1 overflow-x-auto overflow-y-hidden px-6 pb-4">

@@ -180,11 +180,11 @@
                                 <span class="nav-text">Staff</span>
                             </a>
                         </li>
-                        <li><a href="{{ route('business.branches.index') }}" aria-expanded="false">
+                        <!-- <li><a href="{{ route('business.branches.index') }}" aria-expanded="false">
                                 <i class="fas fa-building"></i>
                                 <span class="nav-text">Branches</span>
                             </a>
-                        </li>
+                        </li> -->
                         <li><a href="{{ route('business.expenses.index') }}" aria-expanded="false">
                                 <i class="fas fa-money-bill-wave"></i>
                                 <span class="nav-text">Expenses</span>
@@ -201,10 +201,6 @@
                             </a>
                         </li>
                     </ul>
-                    <div class="copyright">
-                        <p><strong>Jobick Job Admin</strong> © 2024 All Rights Reserved</p>
-                        <p class="text-xs">Made with <span class="heart"></span> by DexignLab</p>
-                    </div>
                 </div>
             </div>
             <!-- Sidebar end -->

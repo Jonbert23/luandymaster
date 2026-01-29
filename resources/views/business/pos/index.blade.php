@@ -465,7 +465,7 @@
                                 <i class="item-icon text-white" :class="item.icon"></i>
                             </div>
                             <h6 class="text-sm font-semibold text-gray-900 mb-1" x-text="item.name"></h6>
-                            <p class="text-xs text-gray-500 mb-2" x-text="item.type === 'service' ? item.duration : item.sku"></p>
+                            <p class="text-xs text-gray-500 mb-2" x-show="item.type === 'service'" x-text="item.unit"></p>
                             <p class="text-base font-bold text-primary" x-text="'$' + (parseFloat(item.price) || 0).toFixed(2)"></p>
                             <template x-if="item.type === 'product'">
                                 <span class="badge mt-2" 
@@ -529,17 +529,9 @@
 
             <!-- Totals -->
             <div class="cart-totals">
-                <div class="flex justify-between mb-2">
-                    <span class="text-gray-600">Subtotal</span>
-                    <span class="font-semibold" x-text="'$' + (subtotal || 0).toFixed(2)"></span>
-                </div>
-                <div class="flex justify-between mb-2">
-                    <span class="text-gray-600">Tax (10%)</span>
-                    <span class="font-semibold" x-text="'$' + (tax || 0).toFixed(2)"></span>
-                </div>
-                <div class="flex justify-between pt-3 border-t border-gray-300">
+                <div class="flex justify-between pt-3">
                     <span class="text-lg font-bold text-gray-900">Total</span>
-                    <span class="text-lg font-bold text-primary" x-text="'$' + (total || 0).toFixed(2)"></span>
+                    <span class="text-lg font-bold text-primary" x-text="'$' + (subtotal || 0).toFixed(2)"></span>
                 </div>
             </div>
 
@@ -695,14 +687,6 @@
                         </div>
 
                         <div style="margin-top: 1rem;">
-                            <div class="receipt-row">
-                                <span class="text-gray-600">Subtotal:</span>
-                                <span x-text="'$' + (receiptData.subtotal || 0).toFixed(2)"></span>
-                            </div>
-                            <div class="receipt-row">
-                                <span class="text-gray-600">Tax (10%):</span>
-                                <span x-text="'$' + (receiptData.tax || 0).toFixed(2)"></span>
-                            </div>
                             <div class="receipt-row total">
                                 <span>Total:</span>
                                 <span x-text="'$' + (receiptData.total || 0).toFixed(2)"></span>
@@ -792,8 +776,6 @@
                     customerEmail: '',
                     pickupDate: '',
                     items: [],
-                    subtotal: 0,
-                    tax: 0,
                     total: 0,
                     paymentMethod: '',
                     paymentStatus: '',
@@ -847,52 +829,52 @@
                     { id: 30, type: 'product', name: 'Ironing Water Spray', sku: 'IW-025', price: '5.99', stock: 74, image: 'https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=150&h=150&fit=crop' },
                     
                     // Services - Basic Laundry
-                    { id: 101, type: 'service', name: 'Wash & Fold', duration: '24 hours', price: '15.99', icon: 'fas fa-tshirt', iconBg: '#2769ee' },
-                    { id: 102, type: 'service', name: 'Wash, Dry & Fold', duration: '24 hours', price: '18.99', icon: 'fas fa-tshirt', iconBg: '#1e40af' },
-                    { id: 103, type: 'service', name: 'Express Wash (6hrs)', duration: '6 hours', price: '29.99', icon: 'fas fa-bolt', iconBg: '#e1b746' },
-                    { id: 104, type: 'service', name: 'Same Day Service', duration: '8 hours', price: '24.99', icon: 'fas fa-clock', iconBg: '#f59e0b' },
-                    { id: 105, type: 'service', name: 'Eco-Friendly Wash', duration: '24 hours', price: '19.99', icon: 'fas fa-leaf', iconBg: '#10b981' },
+                    { id: 101, type: 'service', name: 'Wash & Fold', unit: 'Per Kilo', price: '15.99', icon: 'fas fa-tshirt', iconBg: '#2769ee' },
+                    { id: 102, type: 'service', name: 'Wash, Dry & Fold', unit: 'Per Kilo', price: '18.99', icon: 'fas fa-tshirt', iconBg: '#1e40af' },
+                    { id: 103, type: 'service', name: 'Express Wash (6hrs)', unit: 'Per Kilo', price: '29.99', icon: 'fas fa-bolt', iconBg: '#e1b746' },
+                    { id: 104, type: 'service', name: 'Same Day Service', unit: 'Per Load', price: '24.99', icon: 'fas fa-clock', iconBg: '#f59e0b' },
+                    { id: 105, type: 'service', name: 'Eco-Friendly Wash', unit: 'Per Kilo', price: '19.99', icon: 'fas fa-leaf', iconBg: '#10b981' },
                     
                     // Services - Dry Cleaning
-                    { id: 106, type: 'service', name: 'Dry Cleaning - Suit', duration: '48 hours', price: '25.00', icon: 'fas fa-user-tie', iconBg: '#47ae3b' },
-                    { id: 107, type: 'service', name: 'Dry Cleaning - Dress', duration: '48 hours', price: '22.00', icon: 'fas fa-female', iconBg: '#ec4899' },
-                    { id: 108, type: 'service', name: 'Dry Cleaning - Coat', duration: '48 hours', price: '28.00', icon: 'fas fa-vest', iconBg: '#8b5cf6' },
-                    { id: 109, type: 'service', name: 'Dry Cleaning - Pants', duration: '48 hours', price: '12.00', icon: 'fas fa-male', iconBg: '#3b82f6' },
+                    { id: 106, type: 'service', name: 'Dry Cleaning - Suit', unit: 'Per Piece', price: '25.00', icon: 'fas fa-user-tie', iconBg: '#47ae3b' },
+                    { id: 107, type: 'service', name: 'Dry Cleaning - Dress', unit: 'Per Piece', price: '22.00', icon: 'fas fa-female', iconBg: '#ec4899' },
+                    { id: 108, type: 'service', name: 'Dry Cleaning - Coat', unit: 'Per Piece', price: '28.00', icon: 'fas fa-vest', iconBg: '#8b5cf6' },
+                    { id: 109, type: 'service', name: 'Dry Cleaning - Pants', unit: 'Per Piece', price: '12.00', icon: 'fas fa-male', iconBg: '#3b82f6' },
                     
                     // Services - Pressing & Ironing
-                    { id: 110, type: 'service', name: 'Ironing Service', duration: '12 hours', price: '12.99', icon: 'fas fa-fire', iconBg: '#8030d0' },
-                    { id: 111, type: 'service', name: 'Steam Press', duration: '12 hours', price: '15.99', icon: 'fas fa-burn', iconBg: '#dc2626' },
-                    { id: 112, type: 'service', name: 'Express Ironing', duration: '4 hours', price: '19.99', icon: 'fas fa-bolt', iconBg: '#ea580c' },
+                    { id: 110, type: 'service', name: 'Ironing Service', unit: 'Per Piece', price: '12.99', icon: 'fas fa-fire', iconBg: '#8030d0' },
+                    { id: 111, type: 'service', name: 'Steam Press', unit: 'Per Piece', price: '15.99', icon: 'fas fa-burn', iconBg: '#dc2626' },
+                    { id: 112, type: 'service', name: 'Express Ironing', unit: 'Per Piece', price: '19.99', icon: 'fas fa-bolt', iconBg: '#ea580c' },
                     
                     // Services - Specialty Items
-                    { id: 113, type: 'service', name: 'Bedding Service', duration: '48 hours', price: '35.00', icon: 'fas fa-bed', iconBg: '#314c82' },
-                    { id: 114, type: 'service', name: 'Comforter Cleaning', duration: '3 days', price: '42.00', icon: 'fas fa-bed', iconBg: '#0369a1' },
-                    { id: 115, type: 'service', name: 'Curtain Cleaning', duration: '3 days', price: '40.00', icon: 'fas fa-home', iconBg: '#27beee' },
-                    { id: 116, type: 'service', name: 'Carpet Cleaning', duration: '4 days', price: '55.00', icon: 'fas fa-rug', iconBg: '#7b25d1' },
-                    { id: 117, type: 'service', name: 'Pillow Cleaning', duration: '48 hours', price: '15.00', icon: 'fas fa-bed', iconBg: '#4f46e5' },
+                    { id: 113, type: 'service', name: 'Bedding Service', unit: 'Per Set', price: '35.00', icon: 'fas fa-bed', iconBg: '#314c82' },
+                    { id: 114, type: 'service', name: 'Comforter Cleaning', unit: 'Per Piece', price: '42.00', icon: 'fas fa-bed', iconBg: '#0369a1' },
+                    { id: 115, type: 'service', name: 'Curtain Cleaning', unit: 'Per Panel', price: '40.00', icon: 'fas fa-home', iconBg: '#27beee' },
+                    { id: 116, type: 'service', name: 'Carpet Cleaning', unit: 'Per Sqm', price: '55.00', icon: 'fas fa-rug', iconBg: '#7b25d1' },
+                    { id: 117, type: 'service', name: 'Pillow Cleaning', unit: 'Per Piece', price: '15.00', icon: 'fas fa-bed', iconBg: '#4f46e5' },
                     
                     // Services - Special Care
-                    { id: 118, type: 'service', name: 'Wedding Dress Cleaning', duration: '7 days', price: '75.00', icon: 'fas fa-ring', iconBg: '#ee27c0' },
-                    { id: 119, type: 'service', name: 'Wedding Dress Preservation', duration: '10 days', price: '150.00', icon: 'fas fa-gem', iconBg: '#db2777' },
-                    { id: 120, type: 'service', name: 'Leather Cleaning', duration: '5 days', price: '45.00', icon: 'fas fa-briefcase', iconBg: '#ee9827' },
-                    { id: 121, type: 'service', name: 'Leather Conditioning', duration: '5 days', price: '35.00', icon: 'fas fa-shield-alt', iconBg: '#d97706' },
-                    { id: 122, type: 'service', name: 'Suede Cleaning', duration: '5 days', price: '50.00', icon: 'fas fa-shopping-bag', iconBg: '#c2410c' },
+                    { id: 118, type: 'service', name: 'Wedding Dress Cleaning', unit: 'Per Piece', price: '75.00', icon: 'fas fa-ring', iconBg: '#ee27c0' },
+                    { id: 119, type: 'service', name: 'Wedding Dress Preservation', unit: 'Per Piece', price: '150.00', icon: 'fas fa-gem', iconBg: '#db2777' },
+                    { id: 120, type: 'service', name: 'Leather Cleaning', unit: 'Per Item', price: '45.00', icon: 'fas fa-briefcase', iconBg: '#ee9827' },
+                    { id: 121, type: 'service', name: 'Leather Conditioning', unit: 'Per Item', price: '35.00', icon: 'fas fa-shield-alt', iconBg: '#d97706' },
+                    { id: 122, type: 'service', name: 'Suede Cleaning', unit: 'Per Item', price: '50.00', icon: 'fas fa-shopping-bag', iconBg: '#c2410c' },
                     
                     // Services - Repairs & Alterations
-                    { id: 123, type: 'service', name: 'Basic Alterations', duration: '72 hours', price: '20.00', icon: 'fas fa-cut', iconBg: '#676767' },
-                    { id: 124, type: 'service', name: 'Hemming', duration: '48 hours', price: '12.00', icon: 'fas fa-ruler', iconBg: '#6b7280' },
-                    { id: 125, type: 'service', name: 'Zipper Replacement', duration: '48 hours', price: '18.00', icon: 'fas fa-tools', iconBg: '#374151' },
-                    { id: 126, type: 'service', name: 'Button Replacement', duration: '24 hours', price: '8.00', icon: 'fas fa-circle', iconBg: '#9ca3af' },
+                    { id: 123, type: 'service', name: 'Basic Alterations', unit: 'Per Item', price: '20.00', icon: 'fas fa-cut', iconBg: '#676767' },
+                    { id: 124, type: 'service', name: 'Hemming', unit: 'Per Item', price: '12.00', icon: 'fas fa-ruler', iconBg: '#6b7280' },
+                    { id: 125, type: 'service', name: 'Zipper Replacement', unit: 'Per Item', price: '18.00', icon: 'fas fa-tools', iconBg: '#374151' },
+                    { id: 126, type: 'service', name: 'Button Replacement', unit: 'Per Button', price: '8.00', icon: 'fas fa-circle', iconBg: '#9ca3af' },
                     
                     // Services - Stain Treatment
-                    { id: 127, type: 'service', name: 'Stain Removal', duration: '24 hours', price: '18.50', icon: 'fas fa-spray-can', iconBg: '#f94a4a' },
-                    { id: 128, type: 'service', name: 'Heavy Stain Treatment', duration: '48 hours', price: '28.00', icon: 'fas fa-exclamation-triangle', iconBg: '#ef4444' },
-                    { id: 129, type: 'service', name: 'Odor Removal', duration: '24 hours', price: '16.00', icon: 'fas fa-wind', iconBg: '#14b8a6' },
+                    { id: 127, type: 'service', name: 'Stain Removal', unit: 'Per Item', price: '18.50', icon: 'fas fa-spray-can', iconBg: '#f94a4a' },
+                    { id: 128, type: 'service', name: 'Heavy Stain Treatment', unit: 'Per Item', price: '28.00', icon: 'fas fa-exclamation-triangle', iconBg: '#ef4444' },
+                    { id: 129, type: 'service', name: 'Odor Removal', unit: 'Per Item', price: '16.00', icon: 'fas fa-wind', iconBg: '#14b8a6' },
                     
                     // Services - Additional
-                    { id: 130, type: 'service', name: 'Shoe Cleaning', duration: '48 hours', price: '22.00', icon: 'fas fa-shoe-prints', iconBg: '#bec747' },
-                    { id: 131, type: 'service', name: 'Shoe Shine', duration: '24 hours', price: '15.00', icon: 'fas fa-star', iconBg: '#eab308' },
-                    { id: 132, type: 'service', name: 'Bag Cleaning', duration: '3 days', price: '30.00', icon: 'fas fa-shopping-bag', iconBg: '#a855f7' },
+                    { id: 130, type: 'service', name: 'Shoe Cleaning', unit: 'Per Pair', price: '22.00', icon: 'fas fa-shoe-prints', iconBg: '#bec747' },
+                    { id: 131, type: 'service', name: 'Shoe Shine', unit: 'Per Pair', price: '15.00', icon: 'fas fa-star', iconBg: '#eab308' },
+                    { id: 132, type: 'service', name: 'Bag Cleaning', unit: 'Per Piece', price: '30.00', icon: 'fas fa-shopping-bag', iconBg: '#a855f7' },
                 ],
 
                 init() {
@@ -933,12 +915,8 @@
                     }, 0);
                 },
 
-                get tax() {
-                    return this.subtotal * 0.10;
-                },
-
                 get total() {
-                    return this.subtotal + this.tax;
+                    return this.subtotal;
                 },
 
                 addToCart(item) {
@@ -1052,8 +1030,6 @@
                             day: 'numeric'
                         }) : '',
                         items: [...this.cartItems],
-                        subtotal: this.subtotal,
-                        tax: this.tax,
                         total: this.total,
                         paymentMethod: this.checkoutForm.paymentMethod,
                         paymentStatus: paymentStatus[this.checkoutForm.paymentMethod],
