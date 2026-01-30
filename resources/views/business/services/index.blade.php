@@ -121,18 +121,18 @@
         
         @php
         $services = [
-            ['name' => 'Wash & Fold', 'description' => 'Professional Washing Service', 'price' => '15.99', 'duration' => '24 hours', 'icon_bg' => '#2769ee', 'icon' => 'fa-tshirt'],
-            ['name' => 'Dry Cleaning', 'description' => 'Premium Dry Clean Service', 'price' => '25.00', 'duration' => '48 hours', 'icon_bg' => '#47ae3b', 'icon' => 'fa-user-tie'],
-            ['name' => 'Ironing Service', 'description' => 'Professional Pressing & Ironing', 'price' => '12.99', 'duration' => '12 hours', 'icon_bg' => '#8030d0', 'icon' => 'fa-fire'],
-            ['name' => 'Express Wash', 'description' => 'Same Day Washing Service', 'price' => '29.99', 'duration' => '6 hours', 'icon_bg' => '#e1b746', 'icon' => 'fa-bolt'],
-            ['name' => 'Bedding Service', 'description' => 'Blankets, Sheets & Comforters', 'price' => '35.00', 'duration' => '48 hours', 'icon_bg' => '#314c82', 'icon' => 'fa-bed'],
-            ['name' => 'Alterations', 'description' => 'Professional Tailoring Service', 'price' => '20.00', 'duration' => '72 hours', 'icon_bg' => '#676767', 'icon' => 'fa-cut'],
-            ['name' => 'Stain Removal', 'description' => 'Expert Stain Treatment', 'price' => '18.50', 'duration' => '24 hours', 'icon_bg' => '#f94a4a', 'icon' => 'fa-spray-can'],
-            ['name' => 'Leather Care', 'description' => 'Specialized Leather Cleaning', 'price' => '45.00', 'duration' => '5 days', 'icon_bg' => '#ee9827', 'icon' => 'fa-briefcase'],
-            ['name' => 'Wedding Dress', 'description' => 'Delicate Bridal Gown Care', 'price' => '75.00', 'duration' => '7 days', 'icon_bg' => '#ee27c0', 'icon' => 'fa-ring'],
-            ['name' => 'Curtain Cleaning', 'description' => 'Home Curtains & Drapes', 'price' => '40.00', 'duration' => '3 days', 'icon_bg' => '#27beee', 'icon' => 'fa-home'],
-            ['name' => 'Shoe Cleaning', 'description' => 'Professional Shoe Care', 'price' => '22.00', 'duration' => '48 hours', 'icon_bg' => '#bec747', 'icon' => 'fa-shoe-prints'],
-            ['name' => 'Carpet Cleaning', 'description' => 'Deep Carpet Wash & Treatment', 'price' => '55.00', 'duration' => '4 days', 'icon_bg' => '#7b25d1', 'icon' => 'fa-rug'],
+            ['name' => 'Wash & Fold', 'description' => 'Professional Washing Service', 'price' => '15.99', 'unit' => 'Per Kilo', 'icon_bg' => '#2769ee', 'icon' => 'fa-tshirt'],
+            ['name' => 'Dry Cleaning', 'description' => 'Premium Dry Clean Service', 'price' => '25.00', 'unit' => 'Per Piece', 'icon_bg' => '#47ae3b', 'icon' => 'fa-user-tie'],
+            ['name' => 'Ironing Service', 'description' => 'Professional Pressing & Ironing', 'price' => '12.99', 'unit' => 'Per Piece', 'icon_bg' => '#8030d0', 'icon' => 'fa-fire'],
+            ['name' => 'Express Wash', 'description' => 'Same Day Washing Service', 'price' => '29.99', 'unit' => 'Per Kilo', 'icon_bg' => '#e1b746', 'icon' => 'fa-bolt'],
+            ['name' => 'Bedding Service', 'description' => 'Blankets, Sheets & Comforters', 'price' => '35.00', 'unit' => 'Per Set', 'icon_bg' => '#314c82', 'icon' => 'fa-bed'],
+            ['name' => 'Alterations', 'description' => 'Professional Tailoring Service', 'price' => '20.00', 'unit' => 'Per Item', 'icon_bg' => '#676767', 'icon' => 'fa-cut'],
+            ['name' => 'Stain Removal', 'description' => 'Expert Stain Treatment', 'price' => '18.50', 'unit' => 'Per Item', 'icon_bg' => '#f94a4a', 'icon' => 'fa-spray-can'],
+            ['name' => 'Leather Care', 'description' => 'Specialized Leather Cleaning', 'price' => '45.00', 'unit' => 'Per Item', 'icon_bg' => '#ee9827', 'icon' => 'fa-briefcase'],
+            ['name' => 'Wedding Dress', 'description' => 'Delicate Bridal Gown Care', 'price' => '75.00', 'unit' => 'Per Piece', 'icon_bg' => '#ee27c0', 'icon' => 'fa-ring'],
+            ['name' => 'Curtain Cleaning', 'description' => 'Home Curtains & Drapes', 'price' => '40.00', 'unit' => 'Per Panel', 'icon_bg' => '#27beee', 'icon' => 'fa-home'],
+            ['name' => 'Shoe Cleaning', 'description' => 'Professional Shoe Care', 'price' => '22.00', 'unit' => 'Per Pair', 'icon_bg' => '#bec747', 'icon' => 'fa-shoe-prints'],
+            ['name' => 'Carpet Cleaning', 'description' => 'Deep Carpet Wash & Treatment', 'price' => '55.00', 'unit' => 'Per Sqm', 'icon_bg' => '#7b25d1', 'icon' => 'fa-rug'],
         ];
         @endphp
         
@@ -172,7 +172,7 @@
                                         <div>
                                             <h4 class="mb-0">{{ $service['name'] }}</h4>
                                             <p class="mb-2">{{ $service['description'] }}</p>
-                                            <p class="text-[13px]"><i class="far fa-clock ltr:mr-2 rtl:ml-2 text-primary"></i>{{ $service['duration'] }} turnaround</p>
+                                            <p class="text-[13px]"><i class="fas fa-tag ltr:mr-2 rtl:ml-2 text-primary"></i>{{ $service['unit'] }}</p>
                                         </div>
                                     </div>
                                     <div class="job-available sm:mt-0 mt-4">
@@ -224,7 +224,7 @@
                                     <p class="text-primary mb-2 text-[13px] leading-[1.5]">{{ $service['description'] }}</p>
                                 </div>
                                 <div class="text-center pt-1">
-                                    <p class="text-dark"><i class="far fa-clock ltr:mr-2 rtl:ml-2 text-body-text"></i>{{ $service['duration'] }}</p>
+                                    <p class="text-dark"><i class="fas fa-tag ltr:mr-2 rtl:ml-2 text-body-text"></i>{{ $service['unit'] }}</p>
                                     <p class="text-dark font-semibold text-lg text-primary">${{ $service['price'] }}</p>
                                 </div>
                             </div>
